@@ -1,4 +1,5 @@
-require '../src/caesar'
+require 'spec_helper'
+require_relative '../src/caesar'
 
 Rspec.describe 'Caesar exercise tests' do
   describe 'Turn "What a string!" into "Bmfy f xywnsl!"' do
