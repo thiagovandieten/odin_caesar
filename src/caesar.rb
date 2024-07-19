@@ -10,6 +10,20 @@ def caesar_cipher(input, offset)
   new_bytes = string_in_bytes.map do |chr|
     # Determine lower_case or higher case
     is_lowercase = determine_casing(chr)
+    increase_chr = chr + offset
+    new_position = 0
+
+    if is_lowercase && increase_chr > LC_END
+      overflow = increase_chr - LC_END - 1
+      new_position = LC_START + overflow
+    elsif !is_lowercase && increase_chr > UC_END
+      overflow = increase_chr - UC_END - 1
+      new_position = UC_START + overflow
+    else
+      new_position = increase_chr
+    end
+    new_position.chr
+  end
   new_bytes.join
 end
 
