@@ -13,17 +13,7 @@ def caesar_cipher(input, offset)
 
     is_lowercase = determine_casing(chr)
     increase_chr = chr + offset
-    new_position = 0
-
-    if is_lowercase && increase_chr > LC_END
-      overflow = increase_chr - LC_END - 1
-      new_position = LC_START + overflow
-    elsif !is_lowercase && increase_chr > UC_END
-      overflow = increase_chr - UC_END - 1
-      new_position = UC_START + overflow
-    else
-      new_position = increase_chr
-    end
+    new_position = overflow_correction(increase_chr, is_lowercase)
     new_position.chr
   end
   new_bytes.join('').encode('UTF-8')
@@ -38,4 +28,17 @@ def determine_casing(chr)
   else
     'You have entered a incompatible ASCII'
   end
+end
+
+def overflow_correction(chr, is_lowercase)
+  if is_lowercase && chr > LC_END
+    overflow = chr - LC_END - 1
+    new_position = LC_START + overflow
+  elsif !is_lowercase && chr > UC_END
+    overflow = chr - UC_END - 1
+    new_position = UC_START + overflow
+  else
+    new_position = chr
+  end
+  new_position
 end
