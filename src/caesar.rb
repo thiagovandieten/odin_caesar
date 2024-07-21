@@ -8,7 +8,9 @@ def caesar_cipher(input, offset)
 
   string_in_bytes = input.bytes
   new_bytes = string_in_bytes.map do |chr|
-    # Determine lower_case or higher case
+    # Add chr with no processing if it's not a letter
+    next(chr.chr) if chr < UC_START || chr > LC_END
+
     is_lowercase = determine_casing(chr)
     increase_chr = chr + offset
     new_position = 0
@@ -24,7 +26,7 @@ def caesar_cipher(input, offset)
     end
     new_position.chr
   end
-  new_bytes.join
+  new_bytes.join('').encode('UTF-8')
 end
 
 def determine_casing(chr)
